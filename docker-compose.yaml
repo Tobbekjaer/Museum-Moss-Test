@@ -1,0 +1,89 @@
+# Docker Compose is a tool for defining and running multi-container applications
+
+# This file will setup a backend in WordPress, MySQL and PHPMyAdmin and a frontend in React with a single command.
+# To run --> docker compose up -d
+# To stop --> docker compose down
+
+# React App: Accessible at http://localhost:5173.
+# WordPress: Accessible at http://localhost:8000.
+# PHPMyAdmin: Accessible at http://localhost:8080 (username: root, password: password).
+
+
+version: '3.8'
+
+services:
+  # Database Service
+  db: 
+    image: mysql:latest
+    # To persist our database we use volumes
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    # Database environment variabels
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+    # Our Docker network that all our services run on
+    networks:
+     - wpsite
+
+  # phpmyadmin Service for database management
+  phpmyadmin:
+    depends_on:
+     - db
+    image: phpmyadmin:latest
+    restart: always
+    # Map ports to access this from our local machine
+    ports:
+      - '8080:80' # We need port 8080 on our local machine to listen to port 80 on the container
+    # phpmyadmin environment variabels
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: password
+    networks:
+      - wpsite
+
+  # WordPress Service
+  wordpress: 
+    depends_on: 
+     - db
+    image: wordpress:latest # Uses Apache 
+    # We need to map ports to access WordPress from our local machine
+    ports:
+      - '8000:80' # We need port 8000 on our local machine to listen to port 80 on the container
+    restart: always
+    # We need to map the WordPress files to show up in our root folder
+    volumes:
+    # This is the Web root for Apache where the WordPress files are stored
+      - ./wordpress-site:/var/www/html # Use specific folder for WordPress files
+    # WordPress environment variabels
+    environment: 
+      WORDPRESS_DB_HOST: db:3306 # Default port for MySQL
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+    networks:
+      - wpsite
+
+  # React service
+  react-app:
+    image: node:18-alpine # Using Node.js to run the React App
+    working_dir: /app
+    command: npm run dev # Starts the Vite development server
+    volumes:
+      - ./moss-test-app:/app
+    ports:
+      - '5173:5173' # Host port 5173 maps to Vite's default port 5173
+    networks:
+      - wpsite
+    depends_on:
+      - wordpress # Ensure WordPress is up before starting the React App
+    restart: always
+
+# Map the volume of db_data and the network of wpsites
+networks:
+  wpsite:
+volumes:
+  db_data:
+

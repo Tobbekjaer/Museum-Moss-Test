@@ -1,0 +1,57 @@
+/* Each museum card */
+.museum-card {
+    flex: 0 1 33%; 
+    padding: 20px;
+    margin: 10px;
+    max-width: 400px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Center and size the image */
+.card-image {
+    width: 100%;
+    height: auto;
+    max-height: 200px;
+    object-fit: cover; 
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* Title styling */
+.card-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Subtitle styling */
+.card-subtitle {
+    font-size: 1.2em;
+    margin-bottom: 5px;
+}
+
+/* Activities list*/
+.activities-list {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+/* Button styling */
+.btn-activities {
+    display: inline-block;
+    padding: 10px 20px; 
+    background-color: #007BFF; 
+    color: white;
+    border: none; 
+    border-radius: 5px; 
+    text-align: center; 
+    text-decoration: none; 
+    cursor: pointer; /
+}
+
+.btn-activities:hover {
+    background-color: #0056b3;
+}

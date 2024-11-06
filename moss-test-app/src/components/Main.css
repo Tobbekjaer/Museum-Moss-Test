@@ -1,0 +1,9 @@
+/* Museum cards */
+.museum-cards-list {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 10%;
+    flex-wrap: wrap;
+    padding: 20px;
+}

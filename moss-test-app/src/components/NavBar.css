@@ -1,0 +1,43 @@
+/* Navbar container */
+nav {
+    display: flex;
+    justify-content: space-between; /* This separates left and right sections */
+    align-items: center;
+    background-color: #FFFFF0;
+    height: 100px;
+    padding: 0 25px;
+}
+
+/* Left section: Logo and first four links */
+.nav-links {
+    display: flex;
+    align-items: center;
+}
+
+/* Logo */
+.nav-logo {
+    height: 80px;
+    margin-right: 20px;
+}
+
+/* The first four nav links */
+.nav-links a {
+    margin-right: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+}
+
+/* Museums section: aligned to the right */
+.nav-museums {
+    display: flex;
+    align-items: center;
+}
+
+/* Right section links: Dorf and Vild */
+.nav-museums a {
+    margin-left: 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #333;
+}
